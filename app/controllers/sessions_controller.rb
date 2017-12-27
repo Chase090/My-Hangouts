@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    #triggered upon submitting username/pw. sets this user as session user
+    #this method is triggered upon submitting username/pw. It sets this user as session user
 
     @user = User.find_by(username: params[:username].downcase)
     if @user == nil || !@user.authenticate(params[:password])
@@ -16,5 +16,4 @@ class SessionsController < ApplicationController
     end
   end
 
-
-end 
+end

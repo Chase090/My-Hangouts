@@ -3,7 +3,10 @@ class ApplicationController < ActionController::Base
 
   #to implement later:
   #before_action :authorized
-  #helper_method :logged_in?
+
+  #helper methods are available in Views
+  helper_method :logged_in?, :current_user_id
+
 
 
   #BEFORE any of the below come into play,  session[:user_id] has already been established, via an action in the SessionsController (which is triggered by visiting root signin page & submitting username/pw)
@@ -16,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def logged_in?  #turns current_user_ into a "does this exist"?
+  def logged_in?  #turns current_user_id into a "does this exist"?
      !!current_user_id
      #returns T if current_user isn't nil, returns F if it is nil
   end

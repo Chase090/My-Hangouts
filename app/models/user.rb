@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :friendships, dependent: :destroy #what happens if you don't have dependent: :destroy?
+  has_many :friendships, dependent: :destroy  #if user is destroyed, so is friendship(s)
   has_many :friends, through: :friendships
 
   has_secure_password

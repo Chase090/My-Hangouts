@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    #i'm saving all usernames as downcase
     user_params[:username] = user_params[:username].downcase
     @user = User.new(user_params)
     if @user.valid?

@@ -9,6 +9,12 @@
   </head>
 
   <body>
+    <h1><MyHangouts></h1>
+      <%if current_user_id%>
+      You are logged in as: <%=User.find(current_user_id).username%>
+      <%else%>
+      You are not logged in.
+      <%end%>
     <%= yield %>
   </body>
 </html>
