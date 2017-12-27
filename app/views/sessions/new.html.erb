@@ -1,0 +1,17 @@
+<h1>First page you see, to Sign In</h1>
+<%if flash[:error]%>
+<p><%=flash[:error]%></p>
+<%end%>
+
+
+<%= form_tag sessions_path do %>
+<%= text_field_tag :username, nil, placeholder: "Username" %>
+<%= password_field_tag :password, nil, placeholder: "Password" %>
+<!-- what if no nil -->
+<%= submit_tag "Sign In" %>
+<% end %>
+<br>
+<br>
+<br>
+
+<%=link_to "OR -- Starting Hanging Out - Create New Account", new_user_path%>

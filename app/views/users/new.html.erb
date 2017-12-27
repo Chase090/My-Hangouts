@@ -1,0 +1,8 @@
+<h1>Create a New Account</h1>
+
+<% if flash[:error] %>
+  <p><%= flash[:error] %></p>
+<% end %>
+
+
+<%= render partial: "gen_form"%>

@@ -1,0 +1,17 @@
+
+<%=form_for @user do |f|%>
+Username: <br />
+<%=f.text_field :username%><br/>
+Password: <br />
+<%= f.password_field :password %><br />
+Password Confirmation: <br />
+<%= f.password_field :password_confirmation %><br />
+First Name: <br />
+<%=f.text_field :first_name%><br />
+Last Name: <br />
+<%= f.text_field :last_name%><br />
+Email </br>
+<%=f.email_field :email%><br />
+
+<%= f.submit %>
+<%end%>
