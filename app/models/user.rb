@@ -2,6 +2,13 @@ class User < ApplicationRecord
   has_many :friendships, dependent: :destroy  #if user is destroyed, so is friendship(s)
   has_many :friends, through: :friendships
 
+  has_many :myhangouts, class_name: "Hangout", foreign_key: "owner_id", dependent: :destroy
+
+  has_many :invitations
+  has_many :hangouts, through: :invitations
+
+
+
   has_secure_password
 
   validates :username, :first_name, :last_name, :email, presence: true

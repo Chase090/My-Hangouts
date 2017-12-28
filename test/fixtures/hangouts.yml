@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  location: MyString
+  date: MyString
+  notes: MyString
+  date_options: MyString
+  location_options: MyString
+  draft_notes: MyString
+  confirmed: false
+  owner: one
+
+two:
+  title: MyString
+  location: MyString
+  date: MyString
+  notes: MyString
+  date_options: MyString
+  location_options: MyString
+  draft_notes: MyString
+  confirmed: false
+  owner: two
