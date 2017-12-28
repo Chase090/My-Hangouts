@@ -1,9 +1,16 @@
 class Friendship < ApplicationRecord
   belongs_to :user
   belongs_to :friend, class_name: "User" #this line says you'll have another foreign key in here called friend_id, but it's actually a member of the model User
-  #
-  # after_create :create_inverse_relationship
-  # after_destroy :destroy_inverse_relationship
+
+    def self.create_reciprocal_for_ids(user_id, friend_id)
+      user_friendship = Friendship.create(user_id: user_id, friend_id: friend_id)
+
+      friend_friendship = Friendship.create(user_id: friend_id, friend_id: user_id)
+
+      [user_friendship, friend_friendship]
+    end
+
+    #WILL NEED a self.destroy_reciprocal_for_ids
 
   private
   #

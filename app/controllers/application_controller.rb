@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   #before_action :authorized
 
   #helper methods are available in Views
-  helper_method :logged_in?, :current_user_id
+  helper_method :logged_in?, :current_user_id, :current_user
 
 
 
@@ -17,6 +17,12 @@ class ApplicationController < ActionController::Base
    else # i.e. no one is logged_in - you get nothing back
     end
   end
+
+  def current_user
+    User.find(current_user_id)
+    #returns nil if no current_user, otherwise returns User object
+  end
+
 
 
   def logged_in?  #turns current_user_id into a "does this exist"?

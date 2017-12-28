@@ -18,4 +18,8 @@ class User < ApplicationRecord
     first_name + " " + last_name
   end
 
+  def username_with_full_name
+    username + " (" + self.to_s + ")"
+  end
+
 end
