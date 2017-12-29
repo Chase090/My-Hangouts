@@ -4,7 +4,8 @@
 <h2>My Friends</h2>
 <%@user.friends.each do |friend|%>
 <li><%=friend.username%>
-<%=link_to "Unfriend", friendships_path(friend_id: friend.id), method: :delete%>
+<!-- not currently working -->
+<!-- <%=link_to "Unfriend", friendships_path(friend_id: friend.id), method: :delete%> -->
 <%end%>
 <br/><br/><br/><br/>
 
