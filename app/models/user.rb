@@ -20,4 +20,15 @@ class User < ApplicationRecord
     username + " (" + self.to_s + ")"
   end
 
+  def hangouts_count
+    hangouts.count
+  end
+
+  def invitations_count
+    hangouts.select do |h|
+      h.confirmed == true
+    end.count
+  end
+
+
 end

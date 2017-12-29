@@ -1,78 +1,61 @@
 <h1><%=@user.username%>'s Profile</h1>
 <br/>
 
+<li>Name: <%=@user.to_s%></li>
+<li>Email: <%=@user.email%></li>
+
+
+
 <h2>My Friends</h2>
 <%@user.friends.each do |friend|%>
 <li><%=friend.username%>
-<!-- not currently working -->
-<!-- <%=link_to "Unfriend", friendships_path(friend_id: friend.id), method: :delete%> -->
-<%end%>
-<br/><br/><br/><br/>
 
-<h2>My Hangouts</h2>
-<table cellspacing="20">
-  <col width="130">
-  <col width="130">
-  <col width="130">
+  <p><%=link_to "Create a New Hangout", new_hangout_path%></p>
+<!--
+  3 scenarios - in order below
+  - this is me; option to update info; see dashboard
+  - this is my friend; "you're friends"
+  - this is a 'stranger'; option to become friends  -->
 
-  <tr>
-    <th>Title</th>
-    <th>Date</th>
-    <th>Owner</th>
-  </tr>
-  <%@hangouts.each do |h|%>
-  <tr>
-    <td><%=link_to h.title, h%></td>
-    <td><%=h.date%></td>
-    <td><%if current_user == h.owner%>
-      <%="Me"%>
-      <%else%>
-      <%=h.owner.username%></td>
-    <%end%>
-    <%end%>
-  </tr>
-</table>
-<br/><br/><br/><br/>
+  <%if%>
+  <%current_user==@user%>
+  <%=link_to "Update Account Info", edit_user_path(@user)%><br/>
+<!-- but how do i restrict someone from going staight to the url -->
+ <h2>Dashboard</h2>
+  <p>You have:</p>
+  <table cellspacing="20">
+    <col width="130">
+    <col width="130">
+    <col width="130">
+    <tr>
+      <th>Upcoming Hangouts</th>
+      <th>Invitations</th>
+      <th>Friends</th>
+    </tr>
+    <tr>
+      <!-- <th><%=link_to @user.hangouts_count, hangouts_path%></th>
+    <th><%=link_to @user.invitations_count, hangouts_path%></th>
+    <th><%=link_to @user.friends, friends_path%></th> -->
+     </tr>
+  </table>
+
+  <%elsif @user.friends.includes?(current_user)%>
+  <h3>You're friends!</h3>
+
+  <%else%>
+  <h3><%=link_to "Become Friends", friendships_path(friend_id: @user.id), method: :post %></h3>
+  <%end%>
 
 
-<h2>My Invitations</h2>
-<table cellspacing="20">
-  <col width="130">
-  <col width="130">
-  <col width="130">
-
-  <tr>
-    <th>Title</th>
-    <th>Date</th>
-    <th>Owner</th>
-    <th></th>
-  </tr>
-  <%@invitations.each do |i|%>
-  <tr>
-    <td><%=link_to i.hangout.title, i.hangout%></td>
-    <td><%=i.hangout.date%></td>
-    <td><%=h.owner.username%></td>
-    <td><%=link_to "Accept Invitation", i, method: "post"%>
-    <%end%>
-  </tr>
-</table>
+<!-- not currently working  -->
+<!-- <%=link_to "Unfriend", friendships_path(friend_id: friend.id), method: :delete%>
+<!- <%end%>
 <br/><br/><br/><br/>
 
 
-<!-- username's dashboard for hangouts
-username's friends
-username's profile info
-user's upcoming hangouts
-user's pending invites
-user's draft hangouts
 
-calendar view
-
-Add a friend
-Update Your Profile
-Create a new hangout
-Browse public hangouts -->
-<br/><br/><br/><br/>
 <footer>
 <%=link_to "Hangout Friends Index", users_path%>
+<br/><br/>
+
 </footer>

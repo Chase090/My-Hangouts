@@ -1,0 +1,22 @@
+<h2>My Invitations</h2>
+<table cellspacing="20">
+  <col width="130">
+  <col width="130">
+  <col width="130">
+
+  <tr>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Owner</th>
+    <th></th>
+  </tr>
+  <%@invitations.each do |i|%>
+  <tr>
+    <td><%=link_to i.hangout.title, i.hangout%></td>
+    <td><%=i.hangout.date%></td>
+    <td><%=h.owner.username%></td>
+    <td><%=link_to "Accept Invitation", i, method: "post"%>
+    <%end%>
+  </tr>
+</table>
+<br/><br/><br/>
