@@ -1,26 +1,27 @@
 <h1><%=@user.username%>'s Profile</h1>
-<br/>
+<%if @user.friends.include?(current_user)%>
+You're friends!<br>
+<%elsif @user != current_user && @user.friends.exclude?(current_user)%>
+<p><%=link_to "Become Friends", friendships_path(friend_id: @user.id), method: :post %><p>
+<%end%>
+
 
 <li>Name: <%=@user.to_s%></li>
 <li>Email: <%=@user.email%></li>
+<%if%>
+<%current_user==@user%>
+<br/>
+<%=link_to "Update Account Info", edit_user_path(@user)%><br/>
+ <!-- but how do i restrict someone from going staight to the url -->
 
+<br/><br/><br/><br/><br/>
 
-
-<h2>My Friends</h2>
-<%@user.friends.each do |friend|%>
-<li><%=friend.username%>
-
-  <p><%=link_to "Create a New Hangout", new_hangout_path%></p>
-<!--
-  3 scenarios - in order below
+  <!-- 3 scenarios - in order below
   - this is me; option to update info; see dashboard
   - this is my friend; "you're friends"
-  - this is a 'stranger'; option to become friends  -->
+  - this is a 'stranger'; option to become friends -->
 
-  <%if%>
-  <%current_user==@user%>
-  <%=link_to "Update Account Info", edit_user_path(@user)%><br/>
-<!-- but how do i restrict someone from going staight to the url -->
+
  <h2>Dashboard</h2>
   <p>You have:</p>
   <table cellspacing="20">
@@ -33,29 +34,18 @@
       <th>Friends</th>
     </tr>
     <tr>
-      <!-- <th><%=link_to @user.hangouts_count, hangouts_path%></th>
+    <th><%=link_to @user.hangouts_count, hangouts_path%></th>
     <th><%=link_to @user.invitations_count, hangouts_path%></th>
-    <th><%=link_to @user.friends, friends_path%></th> -->
+    <th><%=link_to @user.friends_count, users_path%></th>
      </tr>
   </table>
-
-  <%elsif @user.friends.includes?(current_user)%>
-  <h3>You're friends!</h3>
-
-  <%else%>
-  <h3><%=link_to "Become Friends", friendships_path(friend_id: @user.id), method: :post %></h3>
   <%end%>
 
 
-<!-- not currently working  -->
-<!-- <%=link_to "Unfriend", friendships_path(friend_id: friend.id), method: :delete%>
-<!- <%end%>
-<br/><br/><br/><br/>
-
+  <br/><br/><br/><br/><br/>
 
 
 <footer>
 <%=link_to "Hangout Friends Index", users_path%>
-<br/><br/>
 
 </footer>
