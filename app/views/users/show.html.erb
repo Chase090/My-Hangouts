@@ -14,7 +14,7 @@ You're friends!<br>
 <%=link_to "Update Account Info", edit_user_path(@user)%><br/>
  <!-- but how do i restrict someone from going staight to the url -->
 
-<br/><br/><br/><br/><br/>
+<br/><br/>
 
   <!-- 3 scenarios - in order below
   - this is me; option to update info; see dashboard
@@ -22,9 +22,9 @@ You're friends!<br>
   - this is a 'stranger'; option to become friends -->
 
 
- <h2>Dashboard</h2>
+ <h3>Dashboard</h2>
   <p>You have:</p>
-  <table cellspacing="20">
+  <table cellspacing="10">
     <col width="130">
     <col width="130">
     <col width="130">
@@ -37,15 +37,9 @@ You're friends!<br>
     <th><%=link_to @user.hangouts_count, hangouts_path%></th>
     <th><%=link_to @user.invitations_count, hangouts_path%></th>
     <th><%=link_to @user.friends_count, users_path%></th>
-     </tr>
+    </tr>
   </table>
   <%end%>
 
 
   <br/><br/><br/><br/><br/>
-
-
-<footer>
-<%=link_to "Hangout Friends Index", users_path%>
-
-</footer>
