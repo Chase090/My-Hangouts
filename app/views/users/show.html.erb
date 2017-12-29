@@ -1,10 +1,61 @@
 <h1><%=@user.username%>'s Profile</h1>
+<br/>
 
-<p>My Friends</p>
+<h2>My Friends</h2>
 <%@user.friends.each do |friend|%>
 <li><%=friend.username%>
+<%=link_to "Unfriend", friendships_path(friend_id: friend.id), method: :delete%>
 <%end%>
+<br/><br/><br/><br/>
 
+<h2>My Hangouts</h2>
+<table cellspacing="20">
+  <col width="130">
+  <col width="130">
+  <col width="130">
+
+  <tr>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Owner</th>
+  </tr>
+  <%@hangouts.each do |h|%>
+  <tr>
+    <td><%=link_to h.title, h%></td>
+    <td><%=h.date%></td>
+    <td><%if current_user == h.owner%>
+      <%="Me"%>
+      <%else%>
+      <%=h.owner.username%></td>
+    <%end%>
+    <%end%>
+  </tr>
+</table>
+<br/><br/><br/><br/>
+
+
+<h2>My Invitations</h2>
+<table cellspacing="20">
+  <col width="130">
+  <col width="130">
+  <col width="130">
+
+  <tr>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Owner</th>
+    <th></th>
+  </tr>
+  <%@invitations.each do |i|%>
+  <tr>
+    <td><%=link_to i.hangout.title, i.hangout%></td>
+    <td><%=i.hangout.date%></td>
+    <td><%=h.owner.username%></td>
+    <td><%=link_to "Accept Invitation", i, method: "post"%>
+    <%end%>
+  </tr>
+</table>
+<br/><br/><br/><br/>
 
 
 <!-- username's dashboard for hangouts
@@ -20,7 +71,7 @@ Add a friend
 Update Your Profile
 Create a new hangout
 Browse public hangouts -->
-
+<br/><br/><br/><br/>
 <footer>
 <%=link_to "Hangout Friends Index", users_path%>
 </footer>

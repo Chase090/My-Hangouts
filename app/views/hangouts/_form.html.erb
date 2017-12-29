@@ -1,0 +1,16 @@
+
+<%="Owner: "+@hangout.owner.username if @hangout.owner%>
+<%=form_for @hangout do |f|%>
+Title: <br />
+<%=f.text_field :title%><br/>
+Location: <br />
+<%= f.text_field :location %><br />
+Date: <br/>
+<%= f.text_field :date%><br/>
+
+Note 1: <input name='hangout[notes][]'></br>
+Note 2: <input name='hangout[notes][]'></br>
+Note 3: <input name='hangout[notes][]'></br>
+
+<%= f.submit %>
+<%end%>

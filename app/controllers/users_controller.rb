@@ -6,6 +6,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @hangouts = Hangout.all.select do |h| h.owner == current_user end
+    @invitations = Invitation.all.select do |i| i.guest == @user && i.confirmed == false end
   end
 
   def new

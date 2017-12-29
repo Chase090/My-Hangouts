@@ -1,0 +1,33 @@
+<h1><%=@hangout.title%></h1>
+
+<p>Owner: <%=@hangout.owner.username%></p>
+<p>Location: <%=@hangout.location%></p>
+<p>Date: <%=@hangout.date%></p>
+<p>Guests:</p>
+<%@hangout.guests.each do |g|%>
+  <li><%=g.username%></li>
+    <%end%>
+
+
+
+<%if current_user == @hangout.owner%>
+
+Invite Guests:
+<!--
+many ways to do this
+- form_for @hangout, posting to this hangout - makes sense in that we may be shoving a lot of guests in
+- form_for @hangout, posting to Invitations -but I can't seem to capture the @hangout within the Invitation controller #create action
+- form_for @new_invitation
+- form_for @hangout, @invitation (requires nested resources)
+- actually don't even need a form_for - this is just a checkbox of id's, not a tied to a model; attributes not required-->
+
+
+<%= form_tag("/hangouts/#{@hangout.id}/guests", method: "post") do %>
+  <%= collection_check_boxes(:hangout, :guest_ids, @notinvited, :id, :username_with_full_name)%>
+  <%= submit_tag("Invite Guests")%>
+  <%end%>
+<%end%>
+
+<footer>
+<%=link_to "Hangout Index", hangouts_path%>
+</footer>

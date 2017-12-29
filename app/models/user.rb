@@ -7,8 +7,6 @@ class User < ApplicationRecord
   has_many :invitations
   has_many :hangouts, through: :invitations
 
-
-
   has_secure_password
 
   validates :username, :first_name, :last_name, :email, presence: true

@@ -10,10 +10,11 @@
 
   <body>
     <h1><MyHangouts></h1>
-      <%if current_user_id%>
-      You are logged in as: <%=User.find(current_user_id).username%>
+      <%if signed_in?%>
+      You are signed in as: <%=current_user.username%><br/>
+      <%=link_to "Sign Out", sessions_path, method: "delete"%>
       <%else%>
-      You are not logged in.
+      You are not signed in.
       <%end%>
     <%= yield %>
   </body>

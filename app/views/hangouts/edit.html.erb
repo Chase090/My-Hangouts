@@ -1,0 +1,7 @@
+<h1><%=@hangout.title%></h1>
+
+<% if flash[:error] %>
+  <p><%= flash[:error] %></p>
+<% end %>
+
+<%= render partial: "_form"%>

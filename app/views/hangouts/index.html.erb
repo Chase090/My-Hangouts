@@ -1,0 +1,22 @@
+<h1>All Hangouts</h1>
+
+<p><%=link_to "Create a New Hangout", new_hangout_path%></p>
+
+<table cellspacing="20">
+  <col width="130">
+  <col width="130">
+  <col width="130">
+
+  <tr>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Owner</th>
+  </tr>
+  <%@hangouts.each do |h|%>
+  <tr>
+    <td><%=link_to h.title, h%></td>
+    <td><%=h.date%></td>
+    <td><%=h.owner.username%></td>
+    <%end%>
+  </tr>
+</table>
