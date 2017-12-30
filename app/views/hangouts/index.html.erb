@@ -1,29 +1,41 @@
-<h1>All Hangouts</h1>
+<h1>Your Hangouts</h1>
 
-<p><%=link_to "Create a New Hangout", new_hangout_path%></p>
-
-<table cellspacing="20">
-  <col width="130">
-  <col width="130">
-  <col width="130">
+  <table cellspacing="20">
+    <col width="130">
+    <col width="130">
+    <col width="130">
 
   <tr>
     <th>Title</th>
     <th>Date</th>
     <th>Owner</th>
+    <th>Status</th>
   </tr>
-  <%@hangouts.each do |h|%>
+
+  <%@allhangouts.each do |h|%>
   <tr>
     <td><%=link_to h.title, h%></td>
     <td><%=h.date%></td>
-    <td><%=h.owner.username%></td>
+    <td><%if h.owner != current_user%>
+      <%=h.owner.username%>
+    <%else%>
+    You
+    <%end%></td>
+    <td><%if h.user_confirmed?(current_user)%>
+      <%="You're In!"%> - <%=link_to "Get Out", rsvp_path(Invitation.find_by(guest: current_user, hangout: h), confirmed: false), method: "patch"%>
+      <%elsif !h.user_confirmed?(current_user)%>
+      <%="You're Currently Out!"%> - <%=link_to "Get In", rsvp_path(Invitation.find_by(guest: current_user, hangout: h), confirmed: true), method: "patch"%>
+    <%end%>
     <%end%>
   </tr>
 </table>
 
+<p><%=link_to "Create a New Hangout", new_hangout_path%></p>
+
 
 
 <!--FUTURE:
+want to make this dynamic RSVP
 calendar view
 Browse public hangouts
 -->

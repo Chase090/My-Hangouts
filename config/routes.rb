@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   post "friendships", to: "friendships#create"
   delete "friendships", to: "friendships#destroy" #pulling this out manually because convention is to go to specific id to delete; i just want to post to sans-view URL of friendships
 
+  patch "invitation/:id", to: "invitations#update", as: "rsvp"
+
   post "hangouts/:id/guests", to: "hangouts#add_guests"
   root "sessions#new", as: "signin"
   post "/sessions", to: "sessions#create"

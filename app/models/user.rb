@@ -21,22 +21,38 @@ class User < ApplicationRecord
     username + " (" + self.to_s + ")"
   end
 
-  def hangouts_count
-    hangouts.select do |h|
-      h.confirmed == true
-    end.count
+  #CONFIRMED + UNCONFIRMED  Hangouts (i.e. All invitations + Your owned hangouts)
+  def all_hangouts
+    invitations.map do |i|
+      i.hangout
+    end + myhangouts
   end
 
-  def invitations_count
-    hangouts.select do |h|
-      h.confirmed == false
-    end.count
+  #CONFIRMED Hangouts (i.e. confirmed invitations + Your own)
+  def confirmed_hangouts
+    invitations.select do |i|
+      i.confirmed == true
+    end + myhangouts
+  end
+
+  def confirmed_hangouts_count
+    confirmed_hangouts.count
+  end
+
+  #UNCONFIRMED Hangouts (i.e. unconfirmed invites)
+  def unconfirmed_hangouts
+    invitations.select do |i|
+      i.confirmed == false
+    end
+  end
+
+  def unconfirmed_hangouts_count
+    unconfirmed_hangouts.count
   end
 
   def friends_count
     friends.count
   end
-
 
 
 end

@@ -1,18 +1,69 @@
 <h1><%=@hangout.title%></h1>
 
-<p>Owner: <%=@hangout.owner.username%></p>
-<p>Location: <%=@hangout.location%></p>
-<p>Date: <%=@hangout.date%></p>
-<p>Guests:</p>
-<%@hangout.guests.each do |g|%>
-  <li><%=g.username%></li>
-    <%end%>
+
+<%if @hangout.owner != current_user%>
+  <%if @hangout.user_confirmed?(current_user)%>
+    <h2>You're In!</h2>
+    <p><%=link_to "Get Out", rsvp_path(@invitation, confirmed: false), method: "patch"%>
+ </p>
+  <%elsif !@hangout.user_confirmed?(current_user)%>
+    <h2>You're Currently Out!</h2>
+    <p><%=link_to "Get In", rsvp_path(@invitation, confirmed: true), method: "patch"%>
+  <%end%>
+<%end%>
+</br></br></br></br>
+
+
+<strong>Owner: </strong>
+<%if @hangout.owner != current_user%>
+  <%=@hangout.owner.username%>
+<%else%>
+You
+<%end%>
+</br></br>
+
+<strong>Location:</strong>
+<%=@hangout.location%>
+</br></br>
+
+<strong>Date: </strong>
+<%=@hangout.date%>
+</br></br>
+
+<strong>Description: </strong>
+<%=@hangout.description%>
+</br></br>
+
+<strong>Guests:</strong><br/><br/>
+Confirmed:
+<%@hangout.confirmed_guests.each do |cg|%>
+  <%if current_user == cg%>
+  <li>You</li>
+  <%else%>
+  <li><%=cg.username%></li>
+  <%end%>
+<%end%>
+</br></br>
+
+Not Yet Confirmed:
+<%@hangout.unconfirmed_guests.each do |ug|%>
+  <%if current_user == ug%>
+  <li>You</li>
+  <%else%>
+  <li><%=ug.username%></li>
+  <%end%>
+<%end%>
+  </br></br>
+
 
 
 
 <%if current_user == @hangout.owner%>
+<%=link_to "Edit Hangout Info", edit_hangout_path(@hangout)%>
+<br/><br/>
 
-Invite Guests:
+<strong>Invite Guests:</strong>
+<br/><br/>
 <!--
 many ways to do this
 - form_for @hangout, posting to this hangout - makes sense in that we may be shoving a lot of guests in
@@ -27,7 +78,8 @@ many ways to do this
   <%= submit_tag("Invite Guests")%>
   <%end%>
 <%end%>
+<br/><br/>
 
 <footer>
-<%=link_to "Hangout Index", hangouts_path%>
+<%=link_to "Go to All Hangouts", hangouts_path%>
 </footer>

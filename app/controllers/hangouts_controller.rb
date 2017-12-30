@@ -1,13 +1,16 @@
 class HangoutsController < ApplicationController
 
   def index
-    @hangouts = Hangout.all
+    @allhangouts = current_user.all_hangouts
+    @confirmedhangouts = current_user.confirmed_hangouts
+    @unconfirmedhangouts = current_user.unconfirmed_hangouts
   end
 
   def show
     @hangout = Hangout.find(params[:id])
     @owner = @hangout.owner
     @notinvited = @owner.friends - @hangout.guests
+    @invitation = @hangout.invitation(current_user)
   end
 
   def new
@@ -62,7 +65,7 @@ class HangoutsController < ApplicationController
 private
 
   def hangout_params
-    params.require(:hangout).permit(:title, :location, :date, :owner, :notes=>[])
+    params.require(:hangout).permit(:title, :location, :date, :owner, :description)
   end
 
 end

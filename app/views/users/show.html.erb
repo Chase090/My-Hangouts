@@ -1,6 +1,9 @@
-<h1><%=@user.username%>'s Profile</h1>
+<h1>--<%=@user.username%>'s profile--</h1>
 <%if @user.friends.include?(current_user)%>
-You're friends!<br>
+You're friends!
+<p><%=link_to "Unfriend", friendships_path(friend_id: @user.id), method: :delete %><p>
+<%end%>
+<br><br>
 <%elsif @user != current_user && @user.friends.exclude?(current_user)%>
 <p><%=link_to "Become Friends", friendships_path(friend_id: @user.id), method: :post %><p>
 <%end%>
@@ -34,8 +37,8 @@ You're friends!<br>
       <th>Friends</th>
     </tr>
     <tr>
-    <th><%=link_to @user.hangouts_count, hangouts_path%></th>
-    <th><%=link_to @user.invitations_count, hangouts_path%></th>
+    <th><%=link_to @user.confirmed_hangouts_count, hangouts_path%></th>
+    <th><%=link_to @user.unconfirmed_hangouts_count, hangouts_path%></th>
     <th><%=link_to @user.friends_count, users_path%></th>
     </tr>
   </table>
