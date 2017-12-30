@@ -16,17 +16,19 @@
   <tr>
     <td><%=link_to h.title, h%></td>
     <td><%=h.date%></td>
-    <td><%if h.owner != current_user%>
-      <%=h.owner.username%>
+
+    <%if h.owner != current_user%>
+        <td><%=h.owner.username%></td>
+        <%if h.user_confirmed?(current_user)%>
+          <td><%="You're In!"%> - <%=link_to "Get Out", rsvp_path(Invitation.find_by(guest: current_user, hangout: h), confirmed: false), method: :patch%></td>
+        <%elsif !h.user_confirmed?(current_user)%>
+          <td><%="You're Currently Out!"%> - <%=link_to "Get In", rsvp_path(Invitation.find_by(guest: current_user, hangout: h), confirmed: true), method: :patch%></td>
+        <%end%>
     <%else%>
-    You
-    <%end%></td>
-    <td><%if h.user_confirmed?(current_user)%>
-      <%="You're In!"%> - <%=link_to "Get Out", rsvp_path(Invitation.find_by(guest: current_user, hangout: h), confirmed: false), method: "patch"%>
-      <%elsif !h.user_confirmed?(current_user)%>
-      <%="You're Currently Out!"%> - <%=link_to "Get In", rsvp_path(Invitation.find_by(guest: current_user, hangout: h), confirmed: true), method: "patch"%>
+      <td>You</td>
+      <td><%="You're In!"%></td>
     <%end%>
-    <%end%>
+  <%end%>
   </tr>
 </table>
 
