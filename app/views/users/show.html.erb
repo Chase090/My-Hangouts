@@ -2,7 +2,6 @@
 <%if @user.friends.include?(current_user)%>
 You're friends!
 <p><%=link_to "Unfriend", friendships_path(friend_id: @user.id), method: :delete %><p>
-<%end%>
 <br><br>
 <%elsif @user != current_user && @user.friends.exclude?(current_user)%>
 <p><%=link_to "Become Friends", friendships_path(friend_id: @user.id), method: :post %><p>

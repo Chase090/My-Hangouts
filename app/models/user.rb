@@ -10,8 +10,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  validates :username, :first_name, :last_name, :email, presence: true
-  validates :username, uniqueness: true
+  validates_presence_of :username, :first_name, :last_name, :email
+  validates_uniqueness_of :username
 
   def to_s
     first_name + " " + last_name

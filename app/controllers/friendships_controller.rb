@@ -14,11 +14,9 @@ class FriendshipsController < ApplicationController
   end
 
 
-
-  # NOT WORKING
-  # def destroy
-  #   Friendship.destroy_reciprocal_for_ids(current_user_id, params[:friend_id])
-  #   redirect_to current_user
-  # end
+  def destroy
+    Friendship.destroy_reciprocal_for_ids(current_user_id, params[:friend_id])
+    redirect_to(request.referer)
+  end
 
 end

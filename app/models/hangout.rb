@@ -2,6 +2,11 @@ class Hangout < ApplicationRecord
   belongs_to :owner, class_name: "User"
   has_many :invitations
   has_many :guests, through: :invitations
+
+
+  validates_presence_of :title
+
+
   #
   # serialize :date_options
   # serialize :location_options

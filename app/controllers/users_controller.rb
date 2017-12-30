@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :authorized, only: [:new, :create]
+  #this says even if you're not signed in, you can still see new user page
 
   def index
     @friends = current_user.friends

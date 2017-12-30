@@ -4,11 +4,13 @@
   <tr>
     <th>Username</th>
     <th>Name</th>
+    <th></th>
   </tr>
   <%@friends.each do |u|%>
   <tr>
     <td><%=link_to u.username, u%></td>
     <td><%=u.to_s%></td>
+    <td><%=link_to "Unfriend", friendships_path(friend_id: u.id), method: :delete %></td>
     <%end%>
   </tr>
 </table>

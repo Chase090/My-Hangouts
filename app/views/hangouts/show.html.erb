@@ -16,7 +16,7 @@
 
 <strong>Owner: </strong>
 <%if @hangout.owner != current_user%>
-  <%=@hangout.owner.username%>
+  <%=link_to @hangout.owner.username, @hangout.owner%>
 <%else%>
 You
 <%end%>
